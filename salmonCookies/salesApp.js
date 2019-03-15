@@ -43,6 +43,8 @@ var capHill = new Store('Capitol Hill', 20, 38, 2.3);
 
 var alki = new Store('Alki', 2, 16, 4.6);
 
+var test = new Store('test', 2, 16, 4.6);
+
 
 
 
@@ -158,31 +160,17 @@ var cookieTotalArray = [];
 
 
 
-
-
-
-
-
-
-
-
-console.log(allStoreCookiesSold);
-
 // Calculates the total amount of cookies for each store and stores them on an Array
 var inc = 0;
 
 
 
-console.log(storeObjectArray);
-console.log(`storageObjArr Len: ${storeObjectArray.length}`);
+
 
 for(var a = 0; a < storeCount; a++){
     var sum = 0;
-    console.log(`here: ${inc+=1}`);
-    console.log(allStoreCookiesSold);
     var inc2=0;
     for (var b = 0; b < tableWorkingTimeWidth; b++){
-        console.log(`here2: ${inc2+=1} & my value is ${allStoreCookiesSold[a][b]}`);
         sum += allStoreCookiesSold[a][b]
     }
 
@@ -201,14 +189,10 @@ for(var a = 0; a < storeCount; a++){
 
 var eachHourTotal = [];
 // Calculates the total for for each working hour across all stores
-console.log('tableWorkingTimeWidth')
-console.log(tableWorkingTimeWidth)
 for (var k = 0; k < tableWorkingTimeWidth; k++){
     var result = 0;
     console.log('ran');
     for (var e = 0; e < storeCount; e++){
-        console.log('last words')
-        console.log(allStoreCookiesSold)
         result = result + allStoreCookiesSold[e][k];
     }
     eachHourTotal.push(result);
@@ -276,64 +260,71 @@ var trElement1 = document.createElement('tr');
 
 
 
-// Head Row
-for(var i = 0; i < tableWidth; i++){
-
-    var td_element = document.createElement('td');
-    td_element.textContent = table_headers[i];
-    trElement1.appendChild(td_element);
-
-}
-cookieTable.appendChild(trElement1);
-
-
-
-// eachHourTotal
 
 
 
 
-// Dynamically will fill up the table with the relavent data
-for (var k = 0; k < storeCount; k++){
 
+
+    // for (var i = 0; i < 15; i++){
+
+    
+
+
+
+
+
+
+
+
+
+
+
+function renderTable (){
+    // Head Row
+    for(var i = 0; i < tableWidth; i++){
+
+        var td_element = document.createElement('td');
+        td_element.textContent = table_headers[i];
+        trElement1.appendChild(td_element);
+    }
+    cookieTable.appendChild(trElement1);
+
+
+    // Dynamically will fill up the table with the relavent data
+    for (var k = 0; k < storeCount; k++){
+
+        var trElement = document.createElement('tr');
+        var th_element = document.createElement('th');
+        th_element.textContent = storeObjectArray[k].name;
+        trElement.appendChild(th_element);
+
+        for (var j = 0; j < tableContentWidth; j++){
+
+            var td_element = document.createElement('td');
+            td_element.textContent = allStoreCookiesSold[k][j];
+            trElement.appendChild(td_element);
+        }
+        cookieTable.appendChild(trElement);
+    }
+    console.log(allStoreCookiesSold);
+
+
+    // Adds the total for each our onto the table
     var trElement = document.createElement('tr');
-
     var th_element = document.createElement('th');
-    th_element.textContent = storeObjectArray[k].name;
+    th_element.textContent = 'Total';
     trElement.appendChild(th_element);
 
-    for (var j = 0; j < tableContentWidth; j++){
+    for (var b = 0; b < tableContentWidth; b++){
+
         var td_element = document.createElement('td');
-        td_element.textContent = allStoreCookiesSold[k][j];
+        td_element.textContent = eachHourTotal[b];
         trElement.appendChild(td_element);
     }
-
     cookieTable.appendChild(trElement);
 }
-console.log(allStoreCookiesSold);
-
-
-
-
-
-// Adds the total for each our onto the table
-
-var trElement = document.createElement('tr');
-
-var th_element = document.createElement('th');
-th_element.textContent = 'Total';
-trElement.appendChild(th_element);
-
-for (var b = 0; b < tableContentWidth; b++){
-    var td_element = document.createElement('td');
-    td_element.textContent = eachHourTotal[b];
-    trElement.appendChild(td_element);
-}
-
-cookieTable.appendChild(trElement);
-
-
-
+renderTable ();
 
 
 
@@ -372,9 +363,6 @@ cookieTable.appendChild(trElement);
 
 
 var cookieStore = document.getElementById('cookie-store');
-// Remember to push onto stores array
-
-
 
 
 
@@ -383,13 +371,25 @@ var storeTable = document.getElementById('cookieTable')
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// Sores the values of the input form
 var formSubmitHandler = function (event) {
-    //when the form submits, it refreshes the page, lets prevent that
+    
     event.preventDefault();
   
     console.log('Making a new store');
 
-    var storeName = event.target.username.value;
+    var storeName = event.target.storeName.value;
     var minCustomers = event.target.minCustomers.value;
     var maxCustomers = event.target.maxCustomers.value;
     var avgCookies = event.target.avgCookies.value;
@@ -404,9 +404,66 @@ var formSubmitHandler = function (event) {
 
     console.log(newStore);
     newStore.render();
+};
 
 
-  };
+
+
+    // Generates a random number of customers
+    Store.prototype.getCustomerNumber = function(min, max){
+        var customerNumber = getRandomIntInclusive(this.minCustomers, this.maxCustomers);
+        return customerNumber;
+    }
+
+
+  Store.prototype.render = function(){
+    var trElement = document.createElement('tr');
+
+
+    var td_element = document.createElement('td');
+    td_element.textContent = this.name;
+    trElement.appendChild(td_element);
+
+
+    
+
+
+    var hourlyCookieList = [];
+
+
+    // Gets the amount of cookies for each working hour and stores in onto an array
+    // TODO: hourlyCookieCounter is NaN, make it a number
+    for (var i = 0; i < numberOfHours; i++){
+        
+        var hourlyCookieCount = numberOfCookiesSold(this.getCustomerNumber(), this.avgCook);
+        // debugger;
+        hourlyCookieList.push(hourlyCookieCount);
+    }
+    
+
+
+
+
+
+    for (i = 0; i < 15; i++){
+        var td_element = document.createElement('td');
+        td_element.textContent = hourlyCookieList[i];
+        trElement.appendChild(td_element);
+    }
+
+    storeTable.appendChild(trElement);
+    
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
