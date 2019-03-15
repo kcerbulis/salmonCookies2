@@ -41,3 +41,54 @@ footer {
   font-weight: bold;
   color: black;
 }
+.createNewStore {
+  margin-bottom: 300px;
+  text-decoration: blueviolet;
+}
+
+/* td, th {
+  border: 3px solid rebeccapurple;
+ } */
+
+ .button {
+   background-color: #008CBA;
+   margin-left: 10px;
+  }
+  #cookieTable{
+    margin-left: 10%;
+  }
+  
+
+  td, th {  
+    border: 1px solid transparent; 
+    height: 30px; 
+    transition: all 0.3s; 
+}
+
+th {  
+    background: #DFDFDF;
+    font-weight: bold;
+}
+
+td {  
+    background: #FAFAFA;
+    text-align: center;
+}
+
+     
+  tr:nth-child(even) td { background: #F1F1F1; }   
+
+      
+  tr:nth-child(odd) td { background: #FEFEFE; }  
+
+  tr td:hover { background: #666; color: #FFF; }  
+  
+  .goBack{
+    float: left;
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: tomato;
+  }
+
+  
