@@ -5,7 +5,7 @@ table {
 }
   
 h1 {
-  margin-left: 24%;
+  margin-left: 29%;
   width: 60%;
   height: auto;
   /* background-color: rebeccapurple; */
@@ -17,8 +17,27 @@ h1 {
   margin-left: 50px;
 }
 
-.moovingFish{
+.moovingFish {
   width: 105%;
   height: 50%;
   margin-left: -4%;
+}
+.navList {
+  list-style: none;
+  width: 440px;
+  height: 60px;
+  margin-bottom: 50px;
+  margin-left: 30%;
+}
+
+footer {
+  margin-bottom: -1px;
+}
+.navListItem {
+  float: left;
+  margin-left: 30px;
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  color: black;
 }
