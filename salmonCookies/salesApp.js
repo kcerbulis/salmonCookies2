@@ -266,19 +266,6 @@ var trElement1 = document.createElement('tr');
 
 
 
-    // for (var i = 0; i < 15; i++){
-
-    
-
-
-
-
-
-
-
-
-
-
 
 function renderTable (){
     // Head Row
@@ -325,25 +312,6 @@ function renderTable (){
     cookieTable.appendChild(trElement);
 }
 renderTable ();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -463,8 +431,7 @@ var formSubmitHandler = function (event) {
 
 
 
-
-
-
-
   cookieStore.addEventListener('submit', formSubmitHandler);
+
+
+
